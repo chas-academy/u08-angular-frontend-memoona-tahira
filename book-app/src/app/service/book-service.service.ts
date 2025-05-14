@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Book } from '../models/book';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -17,6 +17,15 @@ export class BookServiceService {
       catchError((err) => {
         console.error('API error:', err);
         return throwError(() => err); // Return a new observable
+      })
+    );
+  }
+
+  deleteBook(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API error:', err);
+        return throwError(() => err);
       })
     );
   }

@@ -1,1 +1,27 @@
-<p>book-list works!</p>
+<div class="container">
+  <h1>Book Collection</h1>
+
+  <div *ngIf="loading" class="loading">Loading books...</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div class="actions">
+    <a [routerLink]="['/books/add']" class="add-btn">Add New Book</a>
+  </div>
+
+  <div id="books-container" *ngIf="books && books.length > 0">
+    <div class="book-card" *ngFor="let book of books">
+      <h3 class="book-title">{{ book.title }}</h3>
+      <p><strong>Author:</strong> {{ book.author }}</p>
+      <p *ngIf="book.year"><strong>Year:</strong> {{ book.year }}</p>
+      <p *ngIf="book.genre"><strong>Genre:</strong> {{ book.genre }}</p>
+      <p *ngIf="book.rating"><strong>Rating:</strong> {{ book.rating }}/5</p>
+      <p><strong>Status:</strong> {{ book.isRead ? 'Read' : 'Not Read' }}</p>
+      <a [routerLink]="['/books/edit', book._id]" class="edit-btn">✎</a>
+      <button class="delete-btn" *ngIf="book._id" (click)="deleteBook(book._id)">✕</button>
+    </div>
+  </div>
+
+  <div *ngIf="!books || books.length === 0" class="no-books">
+    <p>No books available. Add a book to get started!</p>
+  </div>
+</div>
