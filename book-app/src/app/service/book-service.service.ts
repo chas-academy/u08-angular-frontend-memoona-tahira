@@ -29,4 +29,22 @@ export class BookServiceService {
       })
     );
   }
+  getBook(id: string): Observable<Book> {
+    return this.http.get<{ data: Book }>(`${this.apiUrl}/${id}`).pipe(
+      map((response) => response.data),
+      catchError((err) => {
+        console.error('API error:', err);
+        return throwError(() => err);
+      })
+    );
+  }
+  updateBook(id: string, book: Book): Observable<Book> {
+    return this.http.put<{ data: Book }>(`${this.apiUrl}/${id}`, book).pipe(
+      map((response) => response.data),
+      catchError((err) => {
+        console.error('API error:', err);
+        return throwError(() => err);
+      })
+    );
+  }
 }
