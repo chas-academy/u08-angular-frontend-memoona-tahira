@@ -5,10 +5,9 @@ import { ActivatedRoute, Router, RouterModule, Params } from '@angular/router';
 import { BookServiceService } from '../../service/book-service.service';
 import { Book } from '../../models/book';
 
-
 @Component({
   selector: 'app-book-edit',
-  imports: [CommonModule,FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './book-edit.component.html',
   styleUrl: './book-edit.component.scss',
 })

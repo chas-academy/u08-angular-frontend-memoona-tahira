@@ -12,7 +12,7 @@ export class BookServiceService {
   constructor(private http: HttpClient) {}
 
   getAllBooks(): Observable<Book[]> {
-    return this.http.get<{ data: Book[] }>(this.apiUrl).pipe(
+    return this.http.get<{ data: Book[] }>(this.apiUrl + '?limit=20&page=1').pipe(
       map((response) => response.data),
       catchError((err) => {
         console.error('API error:', err);
@@ -43,6 +43,19 @@ export class BookServiceService {
       map((response) => response.data),
       catchError((err) => {
         console.error('API error:', err);
+        return throwError(() => err);
+      })
+    );
+  }
+  createBook(bookData: Book): Observable<Book> {
+    const { _id, ...bookWithoutId } = bookData;
+    return this.http.post<{ data: Book }>(this.apiUrl, bookWithoutId).pipe(
+      map((response) => response.data),
+      catchError((err: HttpErrorResponse) => {
+        console.error('API error:', err);
+        if (err.error && err.error.error) {
+          console.error('Validation errors:', err.error.error);
+        }
         return throwError(() => err);
       })
     );

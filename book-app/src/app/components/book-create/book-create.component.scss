@@ -1,4 +1,4 @@
-/* Form Styles */
+/* book-create.component.scss */
 .form-container {
   background-color: white;
   border-radius: 5px;
@@ -58,7 +58,7 @@
   font-size: 16px;
 }
 
-.save-btn:hover {
+.save-btn:hover:not([disabled]) {
   background-color: #45a049;
 }
 
@@ -72,11 +72,24 @@
   font-size: 16px;
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover:not([disabled]) {
   background-color: #d32f2f;
+}
+
+button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 h2 {
   color: #333;
   margin-bottom: 30px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }

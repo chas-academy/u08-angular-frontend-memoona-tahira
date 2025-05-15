@@ -1,11 +1,11 @@
+<!-- book-create.component.html -->
 <div class="container">
-  <h2>Edit Book</h2>
+  <h2>Add New Book</h2>
 
-  <div *ngIf="loading" class="loading">Loading book...</div>
   <div *ngIf="error" class="error-message">{{ error }}</div>
 
-  <div class="form-container" *ngIf="!loading && !error">
-    <form (ngSubmit)="updateBook()">
+  <div class="form-container">
+    <form (ngSubmit)="createBook()">
       <div class="form-group">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" [(ngModel)]="book.title" required />
@@ -33,8 +33,12 @@
         </label>
       </div>
       <div class="form-actions">
-        <button type="submit" class="save-btn">Update Book</button>
-        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+        <button type="submit" class="save-btn" [disabled]="submitting">
+          {{ submitting ? 'Adding...' : 'Add Book' }}
+        </button>
+        <button type="button" class="cancel-btn" (click)="cancel()" [disabled]="submitting">
+          Cancel
+        </button>
       </div>
     </form>
   </div>
